@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ReelForge AI — Reel Script & Thumbnail Generator
 
-## Getting Started
+An AI-powered platform for content creators to generate viral reel scripts, hooks, scene breakdowns, hashtags, captions, and AI thumbnails using Google Gemini.
 
-First, run the development server:
+## Features
 
+- **AI Script Generation** — Multi-step Gemini pipeline: hook → title → script → scenes → CTA → hashtags → viral score → thumbnail prompt
+- **Viral Score Prediction** — AI predicts content reach potential (0-100)  
+- **AI Thumbnail Generator** — Gemini image generation for eye-catching thumbnails
+- **Trending Topics** — AI-suggested viral topic ideas per niche/platform
+- **Script Management** — Save, edit, duplicate, organize into projects/folders
+- **Multi-Platform** — Instagram, YouTube, TikTok, LinkedIn, Twitter/X, Facebook
+- **Authentication** — Supabase Auth with Row Level Security
+
+## Tech Stack
+
+- **Frontend**: Next.js 14 (App Router), TypeScript, Tailwind CSS
+- **Backend**: Next.js API Routes  
+- **Database & Auth**: Supabase (PostgreSQL + RLS)
+- **AI**: Google Gemini 1.5 Flash (text) + Gemini 2.0 Flash (images)
+- **Deployment**: Vercel
+
+## Quick Setup
+
+### 1. Install dependencies
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Environment variables
+Copy `.env.example` to `.env.local` and add your keys:
+- **Supabase**: [supabase.com](https://supabase.com) → Settings → API
+- **Gemini**: [aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Database
+Run `supabase/schema.sql` in your Supabase SQL Editor.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 4. Run locally
+```bash
+npm run dev
+```
 
-## Learn More
+## Deploy to Vercel
 
-To learn more about Next.js, take a look at the following resources:
+1. Push to GitHub
+2. Import in Vercel
+3. Add environment variables
+4. Deploy
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## AI Pipeline Architecture
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Script generation uses **8 separate AI steps** (not one huge prompt):
 
-## Deploy on Vercel
+1. Generate viral hook
+2. Generate video title  
+3. Generate full script
+4. Generate scene structure
+5-8. CTA + hashtags + viral score + thumbnail prompt (parallel)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This multi-step approach produces significantly better quality output than a single mega-prompt.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Project Structure
+
+```
+app/(auth)/          — Login & signup pages
+app/(dashboard)/     — Dashboard, generate, scripts, projects
+app/api/             — API routes for AI generation and CRUD
+components/          — UI components, generate wizard, script views
+lib/gemini/          — Multi-step AI generation pipeline
+lib/supabase/        — Client/server/middleware helpers
+supabase/schema.sql  — Database schema with RLS policies
+```
