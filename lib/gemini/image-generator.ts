@@ -4,7 +4,7 @@ export async function generateThumbnailImage(prompt: string): Promise<string | n
   try {
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!)
 
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-preview-image-generation' } as any)
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-image' } as any)
 
     const enhancedPrompt = `Create a high-quality, eye-catching social media thumbnail/poster. ${prompt}
     Style: Professional, vibrant colors, high contrast, visually stunning.
@@ -37,7 +37,7 @@ export async function generateThumbnailImage(prompt: string): Promise<string | n
 export async function generateThumbnailWithImagen(prompt: string): Promise<string | null> {
   try {
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!)
-    const model = genAI.getGenerativeModel({ model: 'imagen-3.0-generate-001' } as any)
+    const model = genAI.getGenerativeModel({ model: 'imagen-4.0-generate-001' } as any)
 
     const enhancedPrompt = `Social media thumbnail: ${prompt}. High quality, vibrant, professional, eye-catching design.`
 

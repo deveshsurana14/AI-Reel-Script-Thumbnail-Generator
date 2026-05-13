@@ -10,9 +10,9 @@ export function getGeminiClient() {
 }
 
 export function getTextModel() {
-  return getGeminiClient().getGenerativeModel({ model: 'gemini-1.5-flash' })
+  return getGeminiClient().getGenerativeModel({ model: 'gemini-2.5-flash' })
 }
 
 export function getProModel() {
-  return getGeminiClient().getGenerativeModel({ model: 'gemini-1.5-pro' })
+  return getGeminiClient().getGenerativeModel({ model: 'gemini-2.5-flash' })
 }
